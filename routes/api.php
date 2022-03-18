@@ -23,4 +23,4 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', [App\Http\Controllers\V1\Auth\AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->post('logout', [App\Http\Controllers\V1\Auth\AuthController::class, 'logout']);
 
-Route::middleware('auth:sanctum')->get('user/permissions', [App\Http\Controllers\V1\UserController::class, 'getPermissions']);
+//Route::middleware('auth:sanctum')->get('user/permissions', [App\Http\Controllers\V1\UserController::class, 'getPermissions']);
