@@ -18,9 +18,9 @@ class CreateBooksOnLoansTable extends Migration
             $table->foreign('book_id')->references('id')->on('books');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->date('loan_date');
-            $table->date('return_date')->nullable();
-            $table->timestamps();
+            $table->datetime('return_date')->nullable();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 
