@@ -18,4 +18,9 @@ use Illuminate\Support\Facades\Route;
     return $request->user();
 });*/
 
-//Route::get('/user/permissions', [App\Http\Controllers\UserController::class, 'getPermissions']);
+//
+
+Route::post('login', [App\Http\Controllers\V1\Auth\AuthController::class, 'login']);
+Route::middleware('auth:sanctum')->post('logout', [App\Http\Controllers\V1\Auth\AuthController::class, 'logout']);
+
+Route::middleware('auth:sanctum')->get('user/permissions', [App\Http\Controllers\V1\UserController::class, 'getPermissions']);
