@@ -18,7 +18,11 @@ class AuthController extends Controller
                     'error' => false,
                     'token' => $request->user()->createToken($request->email)->plainTextToken,
                     'message' => 'Login Success',
-                    'user' => $request->user()
+                    'user' => [
+                        'user' => $request->user(),
+                        'permissions' => $request->user()->getAllPermissions()->pluck('name'),
+                        'role' => $request->user()->getRoleNames()
+                    ]
                 ]
             ], 200);
         }

@@ -2,13 +2,14 @@
     <div class="container">
         <div class="row justify-content-center mt-5">
             <div class="col-md-6 col-lg-4">
-                <form @submit.prevent="signIn" class="border rounded p-2 shadow">
+                <form
+                    @submit.prevent="signIn"
+                    class="border rounded p-2 shadow"
+                >
                     <h4>Acceso</h4>
-                    <hr>
+                    <hr />
                     <div class="mb-3">
-                        <label for="email" class="form-label"
-                            >Correo</label
-                        >
+                        <label for="email" class="form-label">Correo</label>
                         <input
                             type="email"
                             class="form-control"
@@ -18,9 +19,7 @@
                         />
                     </div>
                     <div class="mb-3">
-                        <label for="password" class="form-label"
-                            >Clave</label
-                        >
+                        <label for="password" class="form-label">Clave</label>
                         <input
                             type="password"
                             class="form-control"
@@ -57,9 +56,13 @@ export default {
                 .then((response) => {
                     if (!response.data.data.error) {
                         localStorage.setItem("token", response.data.data.token);
-                        this.$router.push({name: 'libros'});
-                    }
-                    else{
+                        let user = response.data.data.user;
+                        if (user.role == "administrativo") {
+                            this.$router.push({ name: "admin-libros" });
+                        } else if (user.role == "prestatario"){
+                            this.$router.push({ name: "libros" });
+                        }
+                    } else {
                         swal.fire({
                             title: "Error",
                             text: response.data.data.message,

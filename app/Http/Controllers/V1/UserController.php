@@ -36,9 +36,12 @@ class UserController extends Controller
     public function show()
     {
         // Get de data of the user authenticated
-        $user = auth()->user();
         return response()->json([
-            'data' => $user
+            'data' => [
+                'user' =>  auth()->user(),
+                'permissions' => auth()->user()->getAllPermissions()->pluck('name'),
+                'role' => auth()->user()->getRoleNames()
+            ]
         ], 200);
     }
 
@@ -69,6 +72,7 @@ class UserController extends Controller
     {
         return response()->json([
             'data' => [
+                'role' => auth()->user()->getRoleNames(),
                 'permissions' => auth()->user()->getAllPermissions()->pluck('name')
             ]
         ]);

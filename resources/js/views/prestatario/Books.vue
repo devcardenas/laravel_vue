@@ -1,12 +1,13 @@
 <template>
     <Navbar class="mb-3"></Navbar>
+
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Mis prestamos</h1>
+                <h1>Libros</h1>
                 <table
                     class="table table-bordered"
-                    v-if="prestamos && prestamos.length > 0"
+                    v-if="libros && libros.length > 0"
                 >
                     <thead>
                         <tr>
@@ -17,32 +18,29 @@
                         </tr>
                     </thead>
                     <tbody class="table-sm">
-                        <tr
-                            v-for="prestamo in prestamos"
-                            :key="prestamo.book_id"
-                        >
-                            <th scope="row">{{ prestamo.book.title }}</th>
-                            <td>{{ prestamo.book.author }}</td>
-                            <td>{{ prestamo.book.description }}</td>
+                        <tr v-for="libro in libros" :key="libro.id">
+                            <th scope="row">{{ libro.title }}</th>
+                            <td>{{ libro.author }}</td>
+                            <td>{{ libro.description }}</td>
                             <td>
                                 <button
-                                    class="btn alert-info border btn-sm text-nowrap"
-                                    @click="regresarLibro(prestamo.book_id)"
+                                    class="btn alert-success btn-sm text-nowrap"
+                                    v-if="!libro.borrowed"
+                                    @click="pedirLibroPrestado(libro.id)"
                                 >
-                                    <i
-                                        class="bi bi-arrow-counterclockwise me-2"
-                                    ></i
-                                    >Regresar
+                                    <i class="bi bi-check2-circle me-2"></i
+                                    >Pedir
                                 </button>
+                                <small v-else>No disponible</small>
                             </td>
                         </tr>
                     </tbody>
                 </table>
                 <div
-                    v-else-if="prestamos && prestamos.length == 0"
+                    v-else-if="libros && libros.length == 0"
                     class="text-center"
                 >
-                    <p>No hay prestamos actualmente</p>
+                    <p>No hay libros para mostrar</p>
                 </div>
                 <div v-else class="d-flex justify-content-center">
                     <div class="spinner-border text-primary" role="status">
@@ -53,10 +51,11 @@
         </div>
     </div>
 </template>
+
 <script>
-import Navbar from "../components/Navbar.vue";
+import Navbar from "../../components/Navbar.vue";
 import axios from "axios";
-import { Global } from "../Global";
+import { Global } from "../../Global";
 
 export default {
     components: {
@@ -64,16 +63,16 @@ export default {
     },
     data() {
         return {
-            prestamos: null,
+            libros: null,
         };
     },
-    mounted(){
-        this.getPrestamos();
+    mounted() {
+        this.getLibros();
     },
     methods: {
-        getPrestamos() {
+        getLibros() {
             axios
-                .get(`${Global.url}v1/loans`, {
+                .get(`${Global.url}v1/books`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem(
                             "token"
@@ -81,22 +80,29 @@ export default {
                     },
                 })
                 .then((response) => {
-                    this.prestamos = response.data.data;
+                    this.libros = response.data.data;
                 })
                 .catch((error) => {
                     console.log(error);
                 });
         },
-        regresarLibro(book_id) {
-            axios({
-                method: "put",
-                url: `${Global.url}v1/loans/${book_id}`,
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            })
+        pedirLibroPrestado(book_id) {
+            axios
+                .post(
+                    `${Global.url}v1/loans`,
+                    {
+                        book_id,
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem(
+                                "token"
+                            )}`,
+                        },
+                    }
+                )
                 .then((response) => {
-                    this.getPrestamos();
+                    this.getLibros();
                     Swal.fire("¡Bien!", response.data.data.message, "success");
                 })
                 .catch((error) => {

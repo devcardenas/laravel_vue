@@ -20,14 +20,8 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarNav">
-                            <ul class="navbar-nav" v-if="user">
-                                <li
-                                    class="nav-item"
-                                    v-if="
-                                        hasPermissionTo('view_books') &&
-                                        hasPermissionTo('borrow_books')
-                                    "
-                                >
+                            <ul class="navbar-nav" v-if="user && user.role == 'prestatario'">
+                                <li class="nav-item">
                                     <router-link
                                         class="nav-link active"
                                         active-class="active"
@@ -36,17 +30,44 @@
                                         >Libros</router-link
                                     >
                                 </li>
-                                <li
-                                    class="nav-item"
-                                    v-if="hasPermissionTo('return_books_loans')"
-                                >
+                                <li class="nav-item">
                                     <router-link
                                         class="nav-link"
                                         active-class="active"
-                                        to="prestamos"
+                                        to="/prestamos"
                                         >Mis prestamos</router-link
                                     >
                                 </li>
+
+                                <li class="nav-item">
+                                    <button
+                                        class="btn btn-link text-danger"
+                                        active-class="active"
+                                        @click="signOut"
+                                    >
+                                        Salir
+                                    </button>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav" v-if="user && user.role == 'administrativo'">
+                                <li class="nav-item">
+                                    <router-link
+                                        class="nav-link active"
+                                        active-class="active"
+                                        aria-current="page"
+                                        to="/admin/libros"
+                                        >Libros</router-link
+                                    >
+                                </li>
+                                <li class="nav-item">
+                                    <router-link
+                                        class="nav-link"
+                                        active-class="active"
+                                        to="/admin/prestamos"
+                                        >Prestamos</router-link
+                                    >
+                                </li>
+
                                 <li class="nav-item">
                                     <button
                                         class="btn btn-link text-danger"
@@ -77,7 +98,7 @@ export default {
         };
     },
     created() {
-        this.getPermissions();
+        this.getUserInfo();
     },
     methods: {
         signOut() {
@@ -98,9 +119,12 @@ export default {
                     console.log(error);
                 });
         },
-        getPermissions() {
+        /*hasPermissionTo(permission) {
+            return this.user.permissions.includes(permission);
+        },*/
+        getUserInfo() {
             axios
-                .get(`${Global.url}v1/user/permissions`, {
+                .get(`${Global.url}v1/user`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem(
                             "token"
@@ -109,14 +133,10 @@ export default {
                 })
                 .then((response) => {
                     this.user = response.data.data;
-                    // recorremos los permisos y si el nombre del permiso contiene la cadena de texto que pasamos por parametro entonces retornamos true
                 })
                 .catch((error) => {
                     console.log(error);
                 });
-        },
-        hasPermissionTo(permission) {
-            return this.user.permissions.includes(permission);
         },
     },
 };

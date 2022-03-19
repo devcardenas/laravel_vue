@@ -32,6 +32,7 @@ Route::middleware('auth:sanctum')->post('logout', [App\Http\Controllers\V1\Auth\
  */
 Route::group(['middleware' => ['role:administrativo']], function () {
     Route::middleware('auth:sanctum')->post('v1/books', [App\Http\Controllers\V1\BookController::class, 'store']);
+    Route::middleware('auth:sanctum')->get('v1/books/{id}', [App\Http\Controllers\V1\BookController::class, 'show']);
     Route::middleware('auth:sanctum')->put('v1/books/{id}', [App\Http\Controllers\V1\BookController::class, 'update']);
     Route::middleware('auth:sanctum')->delete('v1/books/{id}', [App\Http\Controllers\V1\BookController::class, 'destroy']);
     Route::middleware('auth:sanctum')->get('v1/books/loans', [App\Http\Controllers\V1\BookController::class, 'getBooksOnLoan']);

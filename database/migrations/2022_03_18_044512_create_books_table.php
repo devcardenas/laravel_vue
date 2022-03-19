@@ -19,6 +19,7 @@ class CreateBooksTable extends Migration
             $table->string('author');
             $table->text('description');
             $table->integer('borrowed');
+            $table->integer('status')->default(1);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
