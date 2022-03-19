@@ -15,17 +15,20 @@ class AuthController extends Controller
         if(Auth::attempt($request->only('email', 'password'))){
             return response()->json([
                 'data' => [
+                    'error' => false,
                     'token' => $request->user()->createToken($request->email)->plainTextToken,
-                    'message' => 'Login Success'
+                    'message' => 'Login Success',
+                    'user' => $request->user()
                 ]
-            ]);
+            ], 200);
         }
         else{
             return response()->json([
                 'data' => [
-                    'error' => 'Login Failed'
+                    'error' => true,
+                    'message' => 'Login Failed'
                 ]
-            ], 401);
+            ], 200);
         }
     }
 

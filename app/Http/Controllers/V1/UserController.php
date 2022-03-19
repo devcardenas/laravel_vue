@@ -31,12 +31,15 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        // Get de data of the user authenticated
+        $user = auth()->user();
+        return response()->json([
+            'data' => $user
+        ], 200);
     }
 
     /**
@@ -66,7 +69,7 @@ class UserController extends Controller
     {
         return response()->json([
             'data' => [
-                'permissions' => auth()->user()->getAllPermissions()
+                'permissions' => auth()->user()->getAllPermissions()->pluck('name')
             ]
         ]);
     }

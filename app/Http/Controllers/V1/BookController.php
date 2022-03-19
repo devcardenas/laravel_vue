@@ -22,7 +22,9 @@ class BookController extends Controller
      */
     public function index()
     {
-        return Book::all();
+        return response()->json([
+            'data' => Book::all()
+        ]);
     }
 
     /**

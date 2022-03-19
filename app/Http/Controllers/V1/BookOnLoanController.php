@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\V1;
 
+use App\Http\Controllers\Controller;
+use App\Models\Book;
 use App\Models\BookOnLoan;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class BookOnLoanController extends Controller
 {
@@ -15,7 +16,11 @@ class BookOnLoanController extends Controller
      */
     public function index()
     {
-        return BookOnLoan::where('user_id', auth()->user()->id)->where('return_date', null)->get();
+        return response()->json(
+            [
+                'data' => BookOnLoan::with("book")->where('user_id', auth()->user()->id)->where('return_date', null)->get(),
+            ]
+        );
     }
 
     /**
@@ -30,15 +35,21 @@ class BookOnLoanController extends Controller
         $data['user_id'] = auth()->user()->id;
         $bookOnLoan = BookOnLoan::create($data);
 
-        if(!empty($bookOnLoan)){
+        if (!empty($bookOnLoan)) {
+            Book::where('id', $data['book_id'])->update(['borrowed' => true]);
             return response()->json([
-                "error" => false,
-                'response' => $bookOnLoan
+                'data' => [
+                    "error" => false,
+                    'response' => $bookOnLoan,
+                    'message' => 'Book borrowed successfully',
+                ]
             ], 200);
-        }else{
+        } else {
             return response()->json([
-                "error" => true,
-                'message' => 'Can not process the request'
+                'data' => [
+                    "error" => true,
+                    'message' => 'Can not process the request',
+                ]
             ], 400);
         }
     }
@@ -56,17 +67,23 @@ class BookOnLoanController extends Controller
         $data = $request->all();
         $data['return_date'] = date('Y-m-d H:i:s');
 
-        if(!empty($bookOnLoan)){
+        if (!empty($bookOnLoan)) {
             $bookOnLoan->where('user_id', auth()->user()->id)->where('book_id', $id)->update($data);
+            Book::where('id', $id)->update(['borrowed' => false]);
 
             return response()->json([
-                "error" => false,
-                'response' => $bookOnLoan
+                'data' => [
+                    "error" => false,
+                    'response' => $bookOnLoan,
+                    'message' => 'Book returned successfully',
+                ],
             ], 200);
-        }else{
+        } else {
             return response()->json([
-                "error" => true,
-                'message' => 'Can not retrieve the book on loan'
+                'data' => [
+                    "error" => true,
+                    'message' => 'Can not retrieve the book on loan',
+                ]
             ], 400);
         }
     }

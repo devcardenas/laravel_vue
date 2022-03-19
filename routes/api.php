@@ -41,7 +41,7 @@ Route::group(['middleware' => ['role:administrativo']], function () {
  * Tanto el rol administrativo como el rol de prestatario pueden:
  * a. Ver los libros
  */
-Route::group(['middleware' => ['role:administrativo|pretatario']], function () {
+Route::group(['middleware' => ['role:administrativo|prestatario']], function () {
     Route::middleware('auth:sanctum')->get('v1/books', [App\Http\Controllers\V1\BookController::class, 'index']);
 });
 
@@ -56,7 +56,5 @@ Route::group(['middleware' => ['role:prestatario']], function () {
     Route::middleware('auth:sanctum')->put('v1/loans/{id}', [App\Http\Controllers\V1\BookOnLoanController::class, 'update']);
 });
 
-
-
-
-
+Route::middleware('auth:sanctum')->get('v1/user', [App\Http\Controllers\V1\UserController::class, 'show']);
+Route::middleware('auth:sanctum')->get('v1/user/permissions', [App\Http\Controllers\V1\UserController::class, 'getPermissions']);
