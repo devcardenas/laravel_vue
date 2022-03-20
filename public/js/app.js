@@ -19783,7 +19783,7 @@ var routes = [{
   path: '/admin/prestamos',
   name: 'admin-prestamos',
   component: function component() {
-    return Promise.resolve().then(function webpackMissingModule() { var e = new Error("Cannot find module './views/admin/Loans.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; });
+    return __webpack_require__.e(/*! import() */ "resources_js_views_admin_Loans_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./views/admin/Loans.vue */ "./resources/js/views/admin/Loans.vue"));
   }
 }];
 var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_4__.createRouter)({
@@ -41228,7 +41228,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_views_prestatario_Books_vue":1,"resources_js_views_prestatario_Loans_vue":1,"resources_js_views_admin_Books_vue":1,"resources_js_views_admin_Edit_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_views_prestatario_Books_vue":1,"resources_js_views_prestatario_Loans_vue":1,"resources_js_views_admin_Books_vue":1,"resources_js_views_admin_Edit_vue":1,"resources_js_views_admin_Loans_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};
