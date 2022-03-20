@@ -4,39 +4,13 @@
         <div class="row">
             <div class="col-md-6">
                 <!-- Form for edit a bok -->
-                <form @submit.prevent="editBook" v-if="book && book.title != null">
-                    <h1>Editar libro</h1>
-                    <div class="form-group">
-                        <label for="title">Título</label>
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="title"
-                            v-model="book.title"
-                        />
-                    </div>
-                    <div class="form-group">
-                        <label for="author">Autor</label>
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="author"
-                            v-model="book.author"
-                        />
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Descripción</label>
-                        <textarea
-                            class="form-control"
-                            id="description"
-                            v-model="book.description"
-                            rows="5"
-                        ></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary mt-3">
-                        Actualizar
-                    </button>
-                </form>
+                <Form
+                    @submit.prevent="editBook"
+                    v-if="book && book.title != null"
+                    :titulo_form="'Editar libro'"
+                    :text_button="'Actualizar'"
+                    :book="book"
+                ></Form>
                 <div v-else class="d-flex justify-content-center">
                     <div class="spinner-border text-primary" role="status">
                         <span class="visually-hidden">Loading...</span>
@@ -49,11 +23,13 @@
 
 <script>
 import Navbar from "../../components/Navbar.vue";
+import Form from "../../components/Form.vue";
 import axios from "axios";
 import { Global } from "../../Global";
 
 export default {
     components: {
+        Form,
         Navbar,
     },
     data() {
@@ -83,7 +59,10 @@ export default {
         },
         editBook() {
             axios
-                .put(`${Global.url}v1/books/${this.$route.params.id}`, this.book)
+                .put(
+                    `${Global.url}v1/books/${this.$route.params.id}`,
+                    this.book
+                )
                 .then((response) => {
                     if (!response.data.data.error) {
                         Swal.fire({
@@ -103,12 +82,22 @@ export default {
                     }
                 })
                 .catch((error) => {
-                    swal.fire({
+                    if (error.response) {
+                        let errors = error.response.data.errors;
+                        let message = "";
+                        for (let error in errors) {
+                            message +=
+                                '<i class="bi bi-x me-2 text-danger"></i>' +
+                                errors[error][0] +
+                                "<br>";
+                        }
+                        swal.fire({
                             title: "Error",
-                            text: error.data.data.message,
+                            html: message,
                             icon: "error",
                             confirmButtonText: "Ok",
                         });
+                    }
                 });
         },
     },

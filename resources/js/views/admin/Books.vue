@@ -1,46 +1,47 @@
 <template>
     <Navbar class="mb-3"></Navbar>
-
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <h1>Libros</h1>
-                <table
-                    class="table table-bordered"
+                <div
+                    class="table-responsive"
                     v-if="libros && libros.length > 0"
                 >
-                    <thead>
-                        <tr>
-                            <th scope="col">Titulo</th>
-                            <th scope="col">Autor</th>
-                            <th scope="col">Descripcion</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody class="table-sm">
-                        <tr v-for="libro in libros" :key="libro.id">
-                            <th scope="row">{{ libro.title }}</th>
-                            <td>{{ libro.author }}</td>
-                            <td>{{ libro.description }}</td>
-                            <td>
-                                <router-link
-                                    class="btn btn-light border text-nowrap"
-                                    :to="{
-                                        name: 'edit-libro',
-                                        params: { id: libro.id },
-                                    }"
-                                    ><i class="bi bi-pencil-square"></i
-                                ></router-link>
-                                <button
-                                    class="btn btn-light border text-nowrap"
-                                    @click="deleteLibro(libro.id)"
-                                >
-                                    <i class="bi bi-trash text-danger"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Título</th>
+                                <th scope="col">Autor</th>
+                                <th scope="col">Descripción</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-sm">
+                            <tr v-for="libro in libros" :key="libro.id">
+                                <th scope="row">{{ libro.title }}</th>
+                                <td>{{ libro.author }}</td>
+                                <td>{{ libro.description }}</td>
+                                <td>
+                                    <router-link
+                                        class="btn btn-light border text-nowrap m-1"
+                                        :to="{
+                                            name: 'editar-libro',
+                                            params: { id: libro.id },
+                                        }"
+                                        ><i class="bi bi-pencil-square"></i
+                                    ></router-link>
+                                    <button
+                                        class="btn btn-light border text-nowrap m-1"
+                                        @click="deleteLibro(libro.id)"
+                                    >
+                                        <i class="bi bi-trash text-danger"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div
                     v-else-if="libros && libros.length == 0"
                     class="text-center"

@@ -10,7 +10,7 @@
                 >
                     <thead>
                         <tr>
-                            <th scope="col">Titulo</th>
+                            <th scope="col">Título</th>
                             <th scope="col">Autor</th>
                             <th scope="col">Descripcion</th>
                             <th></th>

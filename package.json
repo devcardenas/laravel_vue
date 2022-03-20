@@ -17,8 +17,10 @@
         "vue-loader": "^16.2.0"
     },
     "dependencies": {
+        "moment": "^2.29.1",
         "vue": "^3.2.31",
         "vue-axios": "^3.4.1",
-        "vue-router": "^4.0.14"
+        "vue-router": "^4.0.14",
+        "vuex": "^4.0.2"
     }
 }

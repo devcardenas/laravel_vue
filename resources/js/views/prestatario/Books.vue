@@ -5,37 +5,39 @@
         <div class="row">
             <div class="col-md-12">
                 <h1>Libros</h1>
-                <table
-                    class="table table-bordered"
+                <div
+                    class="table-responsive"
                     v-if="libros && libros.length > 0"
                 >
-                    <thead>
-                        <tr>
-                            <th scope="col">Titulo</th>
-                            <th scope="col">Autor</th>
-                            <th scope="col">Descripcion</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody class="table-sm">
-                        <tr v-for="libro in libros" :key="libro.id">
-                            <th scope="row">{{ libro.title }}</th>
-                            <td>{{ libro.author }}</td>
-                            <td>{{ libro.description }}</td>
-                            <td>
-                                <button
-                                    class="btn alert-success btn-sm text-nowrap"
-                                    v-if="!libro.borrowed"
-                                    @click="pedirLibroPrestado(libro.id)"
-                                >
-                                    <i class="bi bi-check2-circle me-2"></i
-                                    >Pedir
-                                </button>
-                                <small v-else>No disponible</small>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Titulo</th>
+                                <th scope="col">Autor</th>
+                                <th scope="col">Descripcion</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-sm">
+                            <tr v-for="libro in libros" :key="libro.id">
+                                <th scope="row">{{ libro.title }}</th>
+                                <td>{{ libro.author }}</td>
+                                <td>{{ libro.description }}</td>
+                                <td>
+                                    <button
+                                        class="btn alert-success btn-sm text-nowrap"
+                                        v-if="!libro.borrowed"
+                                        @click="pedirLibroPrestado(libro.id)"
+                                    >
+                                        <i class="bi bi-check2-circle me-2"></i
+                                        >Pedir
+                                    </button>
+                                    <small v-else>No disponible</small>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div
                     v-else-if="libros && libros.length == 0"
                     class="text-center"

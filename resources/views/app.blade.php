@@ -10,7 +10,7 @@
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-    <title>Hello, world!</title>
+    <title>Biblioteca</title>
   </head>
   <body>
     <div id="app">

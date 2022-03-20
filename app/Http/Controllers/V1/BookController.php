@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\V1;
 
-use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\BookOnLoan;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\BookRequest;
 
 class BookController extends Controller
 {
@@ -23,7 +24,7 @@ class BookController extends Controller
     public function index()
     {
         return response()->json([
-            'data' => Book::all(),
+            'data' => Book::orderBy('title', 'asc')->get(),
         ]);
     }
 
@@ -33,8 +34,9 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BookRequest $request)
     {
+        $request['borrowed'] = false;
         $book = Book::create($request->all());
 
         if (!empty($book)) {
@@ -62,7 +64,7 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BookRequest $request, $id)
     {
         $book = Book::find($id);
 

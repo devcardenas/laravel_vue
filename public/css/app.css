@@ -1,1 +1,8 @@
+input, textarea, form, form button, .navbar {
+    border-radius: 20px !important;
+}
 
+table td,
+table th {
+    vertical-align: middle !important;
+}

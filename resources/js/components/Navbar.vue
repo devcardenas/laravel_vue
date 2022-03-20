@@ -7,7 +7,7 @@
                     style="background-color: #e3f2fd"
                 >
                     <div class="container-fluid">
-                        <a class="navbar-brand" href="#">Biblioteca</a>
+                        <router-link class="navbar-brand" :to="user && user.role == 'prestatario' ? '/libros' : '/admin/libros'">Biblioteca</router-link>
                         <button
                             class="navbar-toggler"
                             type="button"
@@ -63,10 +63,19 @@
                                     <router-link
                                         class="nav-link"
                                         active-class="active"
+                                        to="/admin/libros/crear"
+                                        >Nuevo libro</router-link
+                                    >
+                                </li>
+                                <li class="nav-item">
+                                    <router-link
+                                        class="nav-link"
+                                        active-class="active"
                                         to="/admin/prestamos"
                                         >Prestamos</router-link
                                     >
                                 </li>
+
 
                                 <li class="nav-item">
                                     <button
@@ -112,8 +121,10 @@ export default {
                 })
                 .then((response) => {
                     localStorage.removeItem("token");
-                    localStorage.removeItem("user");
+                    localStorage.removeItem("authenticated");
+                    localStorage.removeItem("role");
                     this.$router.push("/");
+                    this.user = null;
                 })
                 .catch((error) => {
                     console.log(error);

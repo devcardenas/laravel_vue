@@ -1,18 +1,16 @@
 <template>
     <div>
         <router-view></router-view>
+        <Footer></Footer>
     </div>
 </template>
 
 <script>
-
-import { Global } from "./Global.js";
+import Footer from "./components/Footer.vue";
 
 export default {
-    data() {
-        return {
-            Global,
-        };
+    components: {
+        Footer,
     },
 };
 </script>

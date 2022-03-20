@@ -1,12 +1,13 @@
 <template>
     <div class="container">
-        <div class="row justify-content-center mt-5">
+        <div class="row justify-content-center m-5">
             <div class="col-md-6 col-lg-4">
                 <form
                     @submit.prevent="signIn"
-                    class="border rounded p-2 shadow"
+                    class="border p-3"
                 >
-                    <h4>Acceso</h4>
+                    <h4>Biblioteca</h4>
+                    <h5 class="text-muted">Login</h5>
                     <hr />
                     <div class="mb-3">
                         <label for="email" class="form-label">Correo</label>
@@ -55,9 +56,13 @@ export default {
                 .post(`${Global.url}login`, this.login)
                 .then((response) => {
                     if (!response.data.data.error) {
-                        axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.data.token;
-                        localStorage.setItem("token", response.data.data.token);
                         let user = response.data.data.user;
+                        axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.data.token;
+                        // Se guarda el token en el localStorage
+                        localStorage.setItem("token", response.data.data.token);
+                        localStorage.setItem("authenticated", true);
+                        localStorage.setItem("role", user.role[0]);
+                        // Se redirecciona al dashboard segun el rol
                         if (user.role == "administrativo") {
                             this.$router.push({ name: "admin-libros" });
                         } else if (user.role == "prestatario"){
