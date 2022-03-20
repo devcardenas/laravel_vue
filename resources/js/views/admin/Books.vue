@@ -77,13 +77,7 @@ export default {
     methods: {
         getLibros() {
             axios
-                .get(`${Global.url}v1/books`, {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem(
-                            "token"
-                        )}`,
-                    },
-                })
+                .get(`${Global.url}v1/books`)
                 .then((response) => {
                     this.libros = response.data.data;
                 })
@@ -105,16 +99,13 @@ export default {
             }).then((result) => {
                 if (result.value) {
                     axios
-                        .delete(
-                            `${Global.url}v1/books/${id}`,
-                            {
-                                headers: {
-                                    Authorization: `Bearer ${localStorage.getItem(
-                                        "token"
-                                    )}`,
-                                },
-                            }
-                        )
+                        .delete(`${Global.url}v1/books/${id}`, {
+                            headers: {
+                                Authorization: `Bearer ${localStorage.getItem(
+                                    "token"
+                                )}`,
+                            },
+                        })
                         .then((response) => {
                             if (!response.data.data.error) {
                                 Swal.fire({

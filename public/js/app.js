@@ -19571,6 +19571,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios__WEBPACK_IMPORTED_MODULE_0___default().post("".concat(_Global__WEBPACK_IMPORTED_MODULE_1__.Global.url, "login"), this.login).then(function (response) {
         if (!response.data.data.error) {
+          (axios__WEBPACK_IMPORTED_MODULE_0___default().defaults.headers.common.Authorization) = 'Bearer ' + response.data.data.token;
           localStorage.setItem("token", response.data.data.token);
           var user = response.data.data.user;
 

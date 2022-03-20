@@ -88,19 +88,9 @@ export default {
         },
         pedirLibroPrestado(book_id) {
             axios
-                .post(
-                    `${Global.url}v1/loans`,
-                    {
-                        book_id,
-                    },
-                    {
-                        headers: {
-                            Authorization: `Bearer ${localStorage.getItem(
-                                "token"
-                            )}`,
-                        },
-                    }
-                )
+                .post(`${Global.url}v1/loans`, {
+                    book_id,
+                })
                 .then((response) => {
                     this.getLibros();
                     Swal.fire("¡Bien!", response.data.data.message, "success");

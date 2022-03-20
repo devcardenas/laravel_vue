@@ -98,11 +98,7 @@ __webpack_require__.r(__webpack_exports__);
     getLibros: function getLibros() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(_Global__WEBPACK_IMPORTED_MODULE_2__.Global.url, "v1/books"), {
-        headers: {
-          Authorization: "Bearer ".concat(localStorage.getItem("token"))
-        }
-      }).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(_Global__WEBPACK_IMPORTED_MODULE_2__.Global.url, "v1/books")).then(function (response) {
         _this.libros = response.data.data;
       })["catch"](function (error) {
         console.log(error);

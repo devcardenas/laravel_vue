@@ -98,11 +98,7 @@ __webpack_require__.r(__webpack_exports__);
     getPrestamos: function getPrestamos() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(_Global__WEBPACK_IMPORTED_MODULE_2__.Global.url, "v1/loans"), {
-        headers: {
-          Authorization: "Bearer ".concat(localStorage.getItem("token"))
-        }
-      }).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(_Global__WEBPACK_IMPORTED_MODULE_2__.Global.url, "v1/loans")).then(function (response) {
         _this.prestamos = response.data.data;
       })["catch"](function (error) {
         console.log(error);

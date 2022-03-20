@@ -67,19 +67,13 @@ export default {
             prestamos: null,
         };
     },
-    mounted(){
+    mounted() {
         this.getPrestamos();
     },
     methods: {
         getPrestamos() {
             axios
-                .get(`${Global.url}v1/loans`, {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem(
-                            "token"
-                        )}`,
-                    },
-                })
+                .get(`${Global.url}v1/loans`)
                 .then((response) => {
                     this.prestamos = response.data.data;
                 })

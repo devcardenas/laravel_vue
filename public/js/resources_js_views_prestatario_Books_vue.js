@@ -113,10 +113,6 @@ __webpack_require__.r(__webpack_exports__);
 
       axios__WEBPACK_IMPORTED_MODULE_1___default().post("".concat(_Global__WEBPACK_IMPORTED_MODULE_2__.Global.url, "v1/loans"), {
         book_id: book_id
-      }, {
-        headers: {
-          Authorization: "Bearer ".concat(localStorage.getItem("token"))
-        }
       }).then(function (response) {
         _this2.getLibros();
 
