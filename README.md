@@ -2,6 +2,7 @@
 - Composer
 - Node JS
 - Crear una base de datos en local de nombre "library_db"
+- Una vez clonado el proyecto debe renombrar el archivo .env.example por -> .env
 
 ## Comandos para ejecutar el proyecto
 - composer install
