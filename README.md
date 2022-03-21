@@ -11,8 +11,8 @@
 - php artisan serve
 
 ## Usuarios de prueba
-- Administrativo: Correo: administrativo@correo.com, Clave: administrativo@correo.com
-- Prestatario: Correo: prestatario@correo.com, Clave: administrativo@correo.com
+- Administrativo: Correo: administrativo@correo.com, Clave: 123456
+- Prestatario: Correo: prestatario@correo.com, Clave: 123456
 
 ## Desarrollador
 - Correo: dev.cardenas7@gmail.com
