@@ -15,5 +15,5 @@
 - Prestatario: Correo: prestatario@correo.com, Clave: administrativo@correo.com
 
 ## Desarrollador
-- dev.cardenas7@gmail.com
-- Sitio web: cardenas.dev
+- Correo: dev.cardenas7@gmail.com
+- Sitio web: [cardenas.dev](https://cardenas.dev)
